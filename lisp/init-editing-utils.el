@@ -1,3 +1,5 @@
+(require 'phi-rectangle)
+(phi-rectangle-mode 1)
 
 ;;----------------------------------------------------------------------------
 ;; Some basic preferences
