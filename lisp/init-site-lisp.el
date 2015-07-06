@@ -1,5 +1,4 @@
-;;; Set load path
-
+;; Set load path
 (eval-when-compile (require 'cl))
 (defun sanityinc/add-subdirs-to-load-path (parent-dir)
   "Adds every non-hidden subdir of PARENT-DIR to `load-path'."
@@ -15,8 +14,7 @@
 (sanityinc/add-subdirs-to-load-path
  (expand-file-name "site-lisp/" user-emacs-directory))
 
-;;; Utilities for grabbing upstream libs
-
+;; Utilities for grabbing upstream libs
 (defun site-lisp-dir-for (name)
   (expand-file-name (format "site-lisp/%s" name) user-emacs-directory))
 
@@ -44,7 +42,6 @@ source file under ~/.emacs.d/site-lisp/name/"
     (and f (string-prefix-p (file-name-as-directory (site-lisp-dir-for name)) f))))
 
 
-
 ;; Download these upstream libs
 
 (unless (> emacs-major-version 23)

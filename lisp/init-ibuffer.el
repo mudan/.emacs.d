@@ -1,6 +1,5 @@
 (require-package 'fullframe)
-(after-load 'ibuffer
-  (fullframe ibuffer ibuffer-quit))
+(require-package 'ibuffer-git)
 
 ;; 基本设置
 (setq ibuffer-always-compile-formats         t )
@@ -9,17 +8,6 @@
 (setq ibuffer-show-empty-filter-groups     nil )
 (setq ibuffer-use-other-window             nil )
 (setq ibuffer-always-show-last-buffer      nil )
-
-(after-load 'ibuffer
-;; Use human readable Size column instead of original one
-(define-ibuffer-column size-h
-  (:name "Size" :inline t)
-  (cond
-   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-   (t (format "%8d" (buffer-size))))))
-
-(setq ibuffer-filter-group-name-face 'font-lock-doc-face)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (autoload 'ibuffer "ibuffer" "List buffers." t)
@@ -31,6 +19,15 @@
 
 ;; 自动排列档案名称
 (add-hook 'ibuffer-mode-hook 'ibuffer-do-sort-by-filename/process)
+
+;; Use human readable Size column instead of original one
+(define-ibuffer-column size-h
+  (:name "Size" :inline t)
+  (cond
+   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+   ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+   (t (format "%8d" (buffer-size)))))
 
 ;; 格式
 (setq ibuffer-formats

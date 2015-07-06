@@ -10,9 +10,7 @@
 
 (require 'package)
 
-
-
-;;; Standard package repositories
+;; Standard package repositories
 
 (when (< emacs-major-version 24)
   ;; Mainly for ruby-mode
@@ -21,30 +19,23 @@
 ;; We include the org repository for completeness, but don't normally
 ;; use it.
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-
 (when (< emacs-major-version 24)
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
-
 ;;; Also use Melpa for most packages
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
-
-
 ;; If gpg cannot be found, signature checking will fail, so we
 ;; conditionally enable it according to whether gpg is available. We
 ;; re-run this check once $PATH has been configured
 (defun sanityinc/package-maybe-enable-signatures ()
   (setq package-check-signature (when (executable-find "gpg") 'allow-unsigned)))
 
-(sanityinc/package-maybe-enable-signatures)
-(after-load 'init-exec-path
-  (sanityinc/package-maybe-enable-signatures))
+;(sanityinc/package-maybe-enable-signatures)
+;(after-load 'init-exec-path
+;  (sanityinc/package-maybe-enable-signatures))
 
-
-
-;;; On-demand installation of packages
-
+;; On-demand installation of packages
 (defun require-package (package &optional min-version no-refresh)
   "Install given PACKAGE, optionally requiring MIN-VERSION.
 If NO-REFRESH is non-nil, the available package lists will not be
@@ -70,18 +61,14 @@ locate PACKAGE."
      (message "Couldn't install package `%s': %S" package err)
      nil)))
 
-
-;;; Fire up package.el
+;; Fire up package.el
 
 (setq package-enable-at-startup nil)
 (package-initialize)
 
+;(require-package 'fullframe)
+;(fullframe list-packages quit-window)
 
-
-(require-package 'fullframe)
-(fullframe list-packages quit-window)
-
-
 (require-package 'cl-lib)
 (require 'cl-lib)
 
