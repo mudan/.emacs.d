@@ -144,6 +144,12 @@
 (setq org-archive-location "%s_archive::* Archive")
 
 ;(setq org-html-inline-images t)		;; 导出html时,嵌入图片,而不是创建图片的链接
+;; M-x org-toggle-inline-images	直接在 org 文件中显示图片
+(setq org-image-actual-width t)			;; org 文件中显示的图片为原始大小
+;; 尋找你額外進行的 #+ATTR.* 設定，若尋找失敗的話，則會變成使用你的寬度設定
+;; #+CAPTION: 設定圖片寬度為 100
+;; #+ATTR_HTML: :width 100
+;(setq org-image-actual-width '(300))
 
 ;; icalendar
 (autoload 'icalendar-import-buffer "icalendar" "Import iCalendar data from current buffer" t)
@@ -179,6 +185,19 @@
     (insert "#+DATE: " (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time)) "\n")
     (insert "#+OPTIONS: ^:{}")))
 (add-to-list 'find-file-not-found-hooks 'new-org-file-init)
+
+;; 去除导出 HTML 时多余的空格
+(defadvice org-html-paragraph (before org-html-paragraph-advice
+                                      (paragraph contents info) activate)
+  "Join consecutive Chinese lines into a single long line without
+unwanted space when exporting org-mode to html."
+  (let* ((origin-contents (ad-get-arg 1))
+         (fix-regexp "[[:multibyte:]]")
+         (fixed-contents
+          (replace-regexp-in-string
+           (concat
+            "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" origin-contents)))
+    (ad-set-arg 1 fixed-contents)))
 
 ;; M-x gtd 在新的窗口中打开了 GTD.org
 ; (defun gtd ()

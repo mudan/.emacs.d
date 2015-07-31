@@ -1,7 +1,7 @@
 ;;显示列号
 (column-number-mode 1)
 
-;;显示buffer size
+;;显示 buffer size
 (size-indication-mode 1)
 
 ;; 缩小工具条
@@ -25,7 +25,7 @@
 ;; 匹配括号
 (show-paren-mode 1)
 
-;; 以 y/n代表 yes/no
+;; 以 y/n 代表 yes/no
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; 打开压缩文件时自动解压缩
@@ -34,7 +34,7 @@
 ;; 自动打开图片
 (auto-image-file-mode t)
 
-;; shell色彩信息能够被 Emacs 正确解析
+;; shell 色彩信息能够被 Emacs 正确解析
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
@@ -44,24 +44,24 @@
 
 ;; Font
 ;; 系统编码
-(prefer-coding-system 'utf-8 )
+;(prefer-coding-system 'utf-8 )
 ;; 语言环境
-(set-language-environment 'utf-8 )
+;(set-language-environment 'utf-8 )
 ;; 文件保存时的编码
 (set-buffer-file-coding-system 'utf-8 )
 ;; 读写缓冲区编码
-(setq coding-system-for-read 'utf-8)
-(setq coding-system-for-write 'utf-8)
+;(setq coding-system-for-read 'utf-8)
+;(setq coding-system-for-write 'utf-8)
 (setq list-faces-sample-text
       (concat
        "ABCDEFTHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz\n"
        "11223344556677889900       壹貳參肆伍陸柒捌玖零"))
 ;; 设置中英文字体
-;(create-fontset-from-fontset-spec
-; "-unknown-Monaco-normal-normal-normal-*-13-*-*-*-m-0-fontset-myfontset")
-;(set-fontset-font "fontset-myfontset" 'han "HanaMinA")
-;(add-to-list 'default-frame-alist '(font . "fontset-myfontset"))
-;; 显示特殊符号
+(create-fontset-from-fontset-spec
+ "-unknown-Monaco-normal-normal-normal-*-14-*-*-*-m-0-fontset-myfontset")
+(set-fontset-font "fontset-myfontset" 'han "Hiragino Sans GB W3")
+(add-to-list 'default-frame-alist '(font . "fontset-myfontset"))
+; 显示特殊符号
 (set-fontset-font t 'unicode "Symbola" nil 'append)
 (set-fontset-font t 'unicode "Segoe UI Emoji" nil 'append)
 (set-fontset-font t 'unicode "STIX" nil 'prepend)
@@ -74,6 +74,13 @@
 ;; 清除空格
 (require-package 'whitespace-cleanup-mode)
 (global-whitespace-cleanup-mode t)
+
+;; 中英文之间自动添加空格
+(require-package 'pangu-spacing)
+(global-pangu-spacing-mode t)
+;; 默认仅在 emacs 中显示空格不写入文件
+;; 设置直接写入文件
+(setq pangu-spacing-real-insert-separtor t)
 
 ;; htmlize
 (require-package 'htmlize)

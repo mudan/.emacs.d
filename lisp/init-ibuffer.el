@@ -21,23 +21,23 @@
 (add-hook 'ibuffer-mode-hook 'ibuffer-do-sort-by-filename/process)
 
 ;; Use human readable Size column instead of original one
-(define-ibuffer-column size-h
-  (:name "Size" :inline t)
-  (cond
-   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
-   ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
-   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
-   (t (format "%8d" (buffer-size)))))
+;(define-ibuffer-column size-h
+;  (:name "Size" :inline t)
+;  (cond
+;   ((> (buffer-size) 1000000) (format "%7.1fM" (/ (buffer-size) 1000000.0)))
+;   ((> (buffer-size) 100000) (format "%7.0fk" (/ (buffer-size) 1000.0)))
+;   ((> (buffer-size) 1000) (format "%7.1fk" (/ (buffer-size) 1000.0)))
+;   (t (format "%8d" (buffer-size)))))
 
 ;; 格式
-(setq ibuffer-formats
-      '((     (name 23 23 :left :elide)
-              " "
-              (size-h 9 -1 :right)
-              "  "
-              (mode 16 16 :left :elide)
-              " "
-              filename-and-process)))
+;(setq ibuffer-formats
+;      '((     (name 23 23 :left :elide)
+;              " "
+;              (size-h 9 -1 :right)
+;              "  "
+;              (mode 16 16 :left :elide)
+;              " "
+;              filename-and-process)))
 
 ;; 分组
 (setq ibuffer-saved-filter-groups
