@@ -1,3 +1,5 @@
+(require-package 'zenburn-theme)
+(require 'zenburn-theme)
 
 ;; 使用 Ctrl-c ← （向左的箭头键）组合键，退回你的上一个窗口设置
 (when (fboundp 'winner-mode)
@@ -14,7 +16,7 @@
 
 ;; 显示时间设置
 (display-time-mode 1);;启用时间显示设置
-(setq display-time-24hr-format t);;时间使用24小时制
+(setq display-time-24hr-format t);;时间使用 24 小时制
 (setq display-time-day-and-date t);;时间显示包括日期和具体时间
 (setq display-time-use-mail-icon t);;时间栏旁边启用邮件设置
 (setq display-time-interval 10);;时间的变化频率
@@ -26,13 +28,13 @@
       (insert " Time-stamp: <>")
     " Time-stamp: <>"))
 ;;时间戳设置(time-stamp)，设定文档上次保存的信息
-;;只要里在你文档里有Time-stamp:的设置，就会自动保存时间戳
+;;只要里在你文档里有 Time-stamp:的设置，就会自动保存时间戳
 (setq time-stamp-active t)
 ;;(setq time-stamp-start "最后更新时间:[ ]+\\\\?")
 (setq time-stamp-start "最后更新时间:[     ]+\\\\?")
 (setq time-stamp-end: "\n")
-(setq time-stamp-format: "%:y年%:m月%:d日")
-;;自动更新time-stamp
+(setq time-stamp-format: "%:y 年%:m 月%:d 日")
+;;自动更新 time-stamp
 (add-hook 'write-file-hooks 'time-stamp)
 
 ;; 最近打开目录列表
@@ -50,14 +52,14 @@
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
 ;; eshell
-;; 将alias保存到指定目录，备份
-;; 新建一文件alias,内容如：
+;; 将 alias 保存到指定目录，备份
+;; 新建一文件 alias,内容如：
 ;; alias 'ls 'ls -a
 ;; alias 'halt 'shutdown /p
 (setq eshell-aliases-file "~/.emacs.d/alias")
-;; 输入em file即可用 Emacs 在当前窗口进行文件编辑
+;; 输入 em file 即可用 Emacs 在当前窗口进行文件编辑
 (defalias 'em 'find-file)
-;; 打开shell
+;; 打开 shell
 (global-set-key (kbd "C-c z") 'eshell)
 ;; 设置
 (setq   eshell-save-history-on-exit t
@@ -81,7 +83,7 @@
 					 " # " " >>> "))))
 
 ;; dired
-;(require 'dired-tar)   ;; 使用'T'来打包或者解压文件夹，需要gzip和unzip支持
+;(require 'dired-tar)   ;; 使用'T'来打包或者解压文件夹，需要 gzip 和 unzip 支持
 ;;允许复制和删除时将文件夹里所有内容一起带上
 (setq dired-recursive-copies t)
 (setq dired-recursive-deletes t)
