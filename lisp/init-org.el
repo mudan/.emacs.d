@@ -1,4 +1,7 @@
 (require-package 'org)
+;(require-package 'ox-twbs)	;; https://github.com/marsmining/ox-twbs
+		;; org-twbs-export-to-html
+;(require 'ox-twbs)
 ;(require-package 'org-fstree)
 
 ;(require-package 'org-crypt)   ; 需启动 EasyPG 加密指定条目
@@ -39,6 +42,9 @@
       org-export-kill-product-buffer-when-displayed t
       org-tags-column 80)
 
+;; 大纲模式下省略号改成箭头
+;; ▼, ↴, ⬎, ⤷
+(setq org-ellipsis "⤵")
 ;; 自动缩排模式
 (setq org-startup-indented t)
 ;; 所有项目隐藏，只保留母节点
@@ -47,7 +53,7 @@
 (setq org-src-fontify-natively t)
 ;; 让正文中的 plain list 也能折叠
 (setq org-cycle-include-plain-lists t)
-;; 高亮显示code blocks
+;; 高亮显示 code blocks
 (setq org-src-fontify-natively t)
 
 ;; 重新定义 org-font-lock-ensure
@@ -66,11 +72,18 @@
 ;             (add-to-list 'org-structure-template-alist
 ;             '("p" "#+BEGIN_SRC plantuml :file uml.png \n?\n#+END_SRC"))
 
-;; org 文件夹
-;(setq org-directory (concat "D:/Dropbox/note"))
+;; 设定 org 目录
+(setq org-publish-project-alist
+      '(("org-notes"
+         :base-directory "D:/Dropbox/note/文摘"
+         :publishing-directory "D:/Dropbox/note/文摘/public_html/"
+         :publishing-function org-twbs-publish-to-html
+         :with-sub-superscript nil
+         )))
+;;(local-set-key (kbd "s-\\") 'my-org-publish-buffer)	;; 在 OSX 下使用 CMD- \
 
 ;; agenda
-;(setq org-agenda-include-diary t)      ; 将diary的事项也纳入agenda中显示
+;(setq org-agenda-include-diary t)      ; 将 diary 的事项也纳入 agenda 中显示
 (setq org-agenda-compact-blocks t)	; Compact the block agenda view
 (setq org-agenda-show-all-dates t)	; 显示所有 Agenda 日期，即使没有任务
 (setq org-agenda-text-search-extra-files (quote (agenda-archives))) ; 当搜索文本时,也从归档文件中查找
@@ -78,7 +91,7 @@
 (setq org-agenda-window-setup 'current-window)  ; agenda 显示在当前窗口
 ;(setq org-agenda-files (list org-directory))    ; angenda 文件从 org 文件夹中寻找
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)  ; agenda 启动 hl-line
-(setq org-agenda-show-all-dates t)	; C-c C-t 直接选择TODO状态
+(setq org-agenda-show-all-dates t)	; C-c C-t 直接选择 TODO 状态
 
 ;; 任何未完成的子任务会阻止父任务变为完成状态,若像临时屏蔽该功能,可以为该任务添加`:NOBLOCKING: t'属性
 ;; 若父任务中设置了属性`:ORDERED: t',则表示其子任务必须依照顺序从上到下完成
@@ -133,7 +146,7 @@
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
 (setq org-clock-out-remove-zero-time-clocks t)
 
-;; 可以refile到 org-agenda-files 中的文件和当前文件中，最多9层
+;; 可以 refile 到 org-agenda-files 中的文件和当前文件中，最多 9 层
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
                                  (org-agenda-files :maxlevel . 9))))
 ;; Allow refile to create parent tasks with confirmation
@@ -143,7 +156,7 @@
 (setq org-archive-mark-done nil)
 (setq org-archive-location "%s_archive::* Archive")
 
-;(setq org-html-inline-images t)		;; 导出html时,嵌入图片,而不是创建图片的链接
+;(setq org-html-inline-images t)		;; 导出 html 时,嵌入图片,而不是创建图片的链接
 ;; M-x org-toggle-inline-images	直接在 org 文件中显示图片
 (setq org-image-actual-width t)			;; org 文件中显示的图片为原始大小
 ;; 尋找你額外進行的 #+ATTR.* 設定，若尋找失敗的話，則會變成使用你的寬度設定
@@ -174,7 +187,7 @@
 ;; C-c C-c 不再询问是否进行运算，直接开始
 (setq org-confirm-babel-evaluate nil)
 
-;; 新增org文件时插入模版
+;; 新增 org 文件时插入模版
 (defun new-org-file-init ()
   "init new org file template"
   (interactive)

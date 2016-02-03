@@ -1,3 +1,6 @@
+;; 刷新软件包列表
+;; M-x package-refresh-contents
+
 (defvar emacs-dir user-emacs-directory
   "Define where user load this init.el, this variable will be `~/.emacs.d/' in many case.")
 
@@ -11,6 +14,9 @@
   (make-directory (concat pdir "/backup") t)
   (make-directory (concat pdir "/cache")  t)
   (make-directory (concat pdir "/log")    t))
+
+;; Fonts
+(set-default-font "Noto Sans Mono CJK SC Regular-11")
 
 ;; Make customize-ui write file to ~/.emacs.d/custom.el
 (setq custom-file (concat emacs-dir "/custom.el"))

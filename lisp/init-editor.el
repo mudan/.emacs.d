@@ -59,7 +59,7 @@
 ;; 设置中英文字体
 ;(create-fontset-from-fontset-spec
 ; "-unknown-Monaco-normal-normal-normal-*-14-*-*-*-m-0-fontset-myfontset")
-;(set-fontset-font "fontset-myfontset" 'han "Hiragino Sans GB W3")
+;(set-fontset-font "fontset-myfontset" 'han "Noto Sans Mono CJK SC")
 ;(add-to-list 'default-frame-alist '(font . "fontset-myfontset"))
 ; 显示特殊符号
 (set-fontset-font t 'unicode "Symbola" nil 'append)
