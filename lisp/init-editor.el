@@ -42,16 +42,16 @@
 (setq user-full-name "mudan")
 (setq user-mail-address "mudand88@gmail.com")
 
-;; Font
+;; 字符编码
 ;; 系统编码
-;(prefer-coding-system 'utf-8 )
+(prefer-coding-system 'utf-8 )
 ;; 语言环境
 ;(set-language-environment 'utf-8 )
 ;; 文件保存时的编码
 (set-buffer-file-coding-system 'utf-8 )
 ;; 读写缓冲区编码
-;(setq coding-system-for-read 'utf-8)
-;(setq coding-system-for-write 'utf-8)
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
 (setq list-faces-sample-text
       (concat
        "ABCDEFTHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz\n"

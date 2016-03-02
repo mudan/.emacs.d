@@ -44,7 +44,7 @@
 
 ;; 大纲模式下省略号改成箭头
 ;; ▼, ↴, ⬎, ⤷
-(setq org-ellipsis "⤵")
+;(setq org-ellipsis "⤵")
 ;; 自动缩排模式
 (setq org-startup-indented t)
 ;; 所有项目隐藏，只保留母节点

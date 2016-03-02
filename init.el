@@ -16,7 +16,9 @@
   (make-directory (concat pdir "/log")    t))
 
 ;; Fonts
-(set-default-font "Noto Sans Mono CJK SC Regular-11")
+;(setq face-font-rescale-alist '(("微软雅黑" . 1.2) ("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2)))
+;; (set-default-font "Microsoft Yahei-8")
+;;(set-default-font "WenQuanYi Micro Hei Mono-11")
 
 ;; Make customize-ui write file to ~/.emacs.d/custom.el
 (setq custom-file (concat emacs-dir "/custom.el"))
@@ -32,6 +34,7 @@
 
 (require 'init-basic)
 (require 'init-editor)
+(require 'init-font)
 (require 'init-calendar)
 
 (require 'init-org)
