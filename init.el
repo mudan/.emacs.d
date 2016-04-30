@@ -17,11 +17,10 @@
 
 ;; Fonts
 ;(setq face-font-rescale-alist '(("微软雅黑" . 1.2) ("Microsoft Yahei" . 1.2) ("WenQuanYi Micro Hei Mono" . 1.2)))
-;; (set-default-font "Microsoft Yahei-8")
-;;(set-default-font "WenQuanYi Micro Hei Mono-11")
-
-;; Make customize-ui write file to ~/.emacs.d/custom.el
-(setq custom-file (concat emacs-dir "/custom.el"))
+;(set-default-font "YaHei Consolas Coder-13")
+;(set-default-font "Courier New-11")
+(set-default-font "Monaco-12")
+(set-fontset-font "fontset-default" 'han '("宋体"))
 
 ;; define a reload command
 (defun reload-emacs ()
@@ -34,7 +33,7 @@
 
 (require 'init-basic)
 (require 'init-editor)
-(require 'init-font)
+;(require 'init-font)
 (require 'init-calendar)
 
 (require 'init-org)
@@ -44,3 +43,15 @@
 (require 'init-ibuffer)
 
 (provide 'init)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

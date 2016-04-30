@@ -34,6 +34,11 @@
 ;; 自动打开图片
 (auto-image-file-mode t)
 
+;; 自动保存当前 buffer
+;(add-hook 'focus-out-hook 'save-buffer)
+;; 保存所有 buffer
+;(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
+
 ;; shell 色彩信息能够被 Emacs 正确解析
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
@@ -43,10 +48,14 @@
 (setq user-mail-address "mudand88@gmail.com")
 
 ;; 字符编码
+;(setq locale-coding-system 'utf-8)
+;(set-terminal-coding-system 'utf-8)
+;(set-keyboard-coding-system 'utf-8)
+;(set-selection-coding-system 'utf-8)
 ;; 系统编码
 (prefer-coding-system 'utf-8 )
 ;; 语言环境
-;(set-language-environment 'utf-8 )
+(set-language-environment 'utf-8 )
 ;; 文件保存时的编码
 (set-buffer-file-coding-system 'utf-8 )
 ;; 读写缓冲区编码
@@ -56,15 +65,24 @@
       (concat
        "ABCDEFTHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz\n"
        "11223344556677889900       壹貳參肆伍陸柒捌玖零"))
-;; 设置中英文字体
-;(create-fontset-from-fontset-spec
-; "-unknown-Monaco-normal-normal-normal-*-14-*-*-*-m-0-fontset-myfontset")
-;(set-fontset-font "fontset-myfontset" 'han "Noto Sans Mono CJK SC")
-;(add-to-list 'default-frame-alist '(font . "fontset-myfontset"))
 ; 显示特殊符号
 (set-fontset-font t 'unicode "Symbola" nil 'append)
 (set-fontset-font t 'unicode "Segoe UI Emoji" nil 'append)
 (set-fontset-font t 'unicode "STIX" nil 'prepend)
+;; prettify-symbols-mode 将各种标识符号改成更美观的字符
+;; 可以参考 vim 中同类插件 haskell.vim
+(global-prettify-symbols-mode 1)
+(defconst lisp--prettify-symbols-alist
+  '(("lambda"  . ?λ)
+    ("pi" . ?π)
+    ("sum" . ?∑)
+    ("elem" . ?∈)
+    ("notElem" . ?∉)
+    ("<=" . ?≤)
+    (">=" . ?≥)
+    ("-<" . ?↢)
+    (">-" . ?↣)
+    ("div" . ?÷)))
 
 ;; 矩形操作
 (require-package 'phi-rectangle)
@@ -91,5 +109,18 @@
 (global-set-key (kbd "<f2>") 'whitespace-cleanup)
 (global-set-key (kbd "<f3>") 'query-replace)	;; 交互式查找替换
 (global-set-key (kbd "<f4>") 'replace-regexp)	;; 立刻替换指定文字
+
+;; chinese-pinyin
+(require-package 'chinese-pyim)
+(require 'chinese-pyim)
+(setq default-input-method "chinese-pyim")
+(global-set-key (kbd "C-\\") 'toggle-input-method)
+;; 使用 popup 包来绘制选词框
+(setq pyim-use-tooltip 'popup)
+;;Linux 平台下，emacs 可以使用 GTK 来绘制选词框
+;(setq pyim-use-tooltip 'pos-tip)
+;(setq x-gtk-use-system-tooltips t)
+;; 选词框单行显示
+(setq pyim-guidance-format-function 'pyim-guidance-format-function-one-line)
 
 (provide 'init-editor)

@@ -13,6 +13,13 @@
 ;(require-package 'ob-ditaa)            ; 加入 ditaa 支持
 ;(setq org-ditaa-jar-path (concat emacs-etc-dir "ditaa.jar"))
 
+;; 改变 org 标题显示
+(require-package 'org-bullets)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;; Fancy todo states
+
+
 ;(when *is-a-mac*
 ;  (require-package 'org-mac-link)
 ;  (autoload 'org-mac-grab-link "org-mac-link" nil t)
@@ -31,12 +38,15 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 ;; Various preferences
-(setq org-log-done t
+(setq org-log-done t		; 日志记录
+      org-log-done '(done)	; 日志记录类型
+      org-enable-table-editor 1	; 启用内建的电子表格
       org-completion-use-ido t
       org-edit-timestamp-down-means-later t
       org-archive-mark-done nil
       org-catch-invisible-edits 'show
       org-export-coding-system 'utf-8
+;      org-export-default-language "zh-CN"
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
@@ -75,15 +85,15 @@
 ;; 设定 org 目录
 (setq org-publish-project-alist
       '(("org-notes"
-         :base-directory "D:/Dropbox/note/文摘"
-         :publishing-directory "D:/Dropbox/note/文摘/public_html/"
+         :base-directory "D:/MEGA/note/文摘"
+         :publishing-directory "D:/MEGA/note/文摘/public_html/"
          :publishing-function org-twbs-publish-to-html
          :with-sub-superscript nil
          )))
 ;;(local-set-key (kbd "s-\\") 'my-org-publish-buffer)	;; 在 OSX 下使用 CMD- \
 
 ;; agenda
-;(setq org-agenda-include-diary t)      ; 将 diary 的事项也纳入 agenda 中显示
+(setq org-agenda-include-diary t)      ; 将 diary 的事项也纳入 agenda 中显示
 (setq org-agenda-compact-blocks t)	; Compact the block agenda view
 (setq org-agenda-show-all-dates t)	; 显示所有 Agenda 日期，即使没有任务
 (setq org-agenda-text-search-extra-files (quote (agenda-archives))) ; 当搜索文本时,也从归档文件中查找
@@ -92,6 +102,7 @@
 ;(setq org-agenda-files (list org-directory))    ; angenda 文件从 org 文件夹中寻找
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)  ; agenda 启动 hl-line
 (setq org-agenda-show-all-dates t)	; C-c C-t 直接选择 TODO 状态
+
 
 ;; 任何未完成的子任务会阻止父任务变为完成状态,若像临时屏蔽该功能,可以为该任务添加`:NOBLOCKING: t'属性
 ;; 若父任务中设置了属性`:ORDERED: t',则表示其子任务必须依照顺序从上到下完成
@@ -109,11 +120,11 @@
 
 ;; org capture
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "D:/Dropbox/note/todo.org" "Tasks")
+      '(("t" "Todo" entry (file+headline "D:/MEGA/note/todo.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "D:/Dropbox/note/journal.org")
+        ("j" "Journal" entry (file+datetree "D:/MEGA/note/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("n" "Note" entry (file+datetree "D:/Dropbox/note/note.org")
+        ("n" "Note" entry (file+datetree "D:/MEGA/note/note.org")
          "* %? :NOTE:\n%U\n%a\n")
         ))
 ;; C-c t 直接打开 todo.org
@@ -135,7 +146,7 @@
 ;; 设置 clock tracking 的时间到达预估工作量时的提醒声音
 (setq org-clock-sound t)
 ;; Separate drawers for clocking and logs
-;; (setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
+(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
 ;; Save clock data and notes in the LOGBOOK drawer
 (setq org-clock-into-drawer t)
 ;; Save state changes in the LOGBOOK drawer
@@ -192,11 +203,9 @@
   "init new org file template"
   (interactive)
   (when (equal "org" (file-name-extension buffer-file-name))
-    (insert (concat "#+TITLE: "(file-name-base buffer-file-name)) "\n")
-    (insert "#+AUTHOR: " user-login-name "\n")
-    (insert "#+CATEGORY: "  (get-category-from-path buffer-file-name)"\n")
-    (insert "#+DATE: " (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time)) "\n")
-    (insert "#+OPTIONS: ^:{}")))
+    (insert (concat "#+TITLE: "(file-name-base buffer-file-name)) "\n")))
+;    (insert "#+AUTHOR: " user-login-name "\n")
+;    (insert "#+DATE: " (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time)) "\n")))
 (add-to-list 'find-file-not-found-hooks 'new-org-file-init)
 
 ;; 去除导出 HTML 时多余的空格

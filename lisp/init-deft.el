@@ -5,6 +5,6 @@
 (setq deft-text-mode 'org-mode)
 ;(setq deft-text-mode 'markdown-mode)
 (setq deft-use-filename-as-title t)
-(setq deft-directory "D:/Dropbox/note/deft")
+(setq deft-directory "D:/MEGA/note/deft")
 
 (provide 'init-deft)

@@ -9,11 +9,11 @@
 ;; 设置 calendar 的显示
 (setq calendar-remove-frame-by-deleting t)
 (setq calendar-week-start-day 1)            ; 设置星期一为每周的第一天
-(setq mark-diary-entries-in-calendar t)     ; 标记calendar上有diary的日期
-(setq mark-holidays-in-calendar t)   ; 为了突出有diary的日期，calendar上不标记节日
-;(setq view-calendar-holidays-initially t) ; 打开calendar的时候不显示一堆节日
-;; 在每次启动的时候，自动按照diary中的记录进行提醒
-(appt-activate 1)
+(setq mark-diary-entries-in-calendar t)     ; 标记 calendar 上有 diary 的日期
+(setq mark-holidays-in-calendar t)   ; 为了突出有 diary 的日期，calendar 上不标记节日
+;(setq view-calendar-holidays-initially t) ; 打开 calendar 的时候不显示一堆节日
+;; 在每次启动的时候，自动按照 diary 中的记录进行提醒
+;(appt-activate 1)
 
 ;; Calendar
 (global-set-key (kbd "C-c C-d") 'calendar)
@@ -27,11 +27,11 @@
 (setq calendar-week-start-day 1)            
 ; 设置星期一为每周的第一天
 (setq mark-diary-entries-in-calendar t)     
-; 标记calendar上有diary的日期
+; 标记 calendar 上有 diary 的日期
 (setq mark-holidays-in-calendar nil)        
-; 为了突出有diary的日期，calendar上不标记节日
+; 为了突出有 diary 的日期，calendar 上不标记节日
 (setq view-calendar-holidays-initially nil) 
-; 打开calendar的时候不显示一堆节日 
+; 打开 calendar 的时候不显示一堆节日 
 ;; 去掉不关心的节日，设定自己在意的节日，在 calendar 上用 h 显示节日
 (setq christian-holidays nil)
 (setq hebrew-holidays nil)
@@ -61,16 +61,16 @@
 ;(setq todo-file-done (concat GTD-HOME-PATH "todo/done"))
 ;(setq todo-file-top (concat GTD-HOME-PATH "todo/top"))
 ;(setq diary-file (concat GTD-HOME-PATH "diary"))
-(setq diary-file "D:/Dropbox/note/diary")
+(setq diary-file "D:/MEGA/note/diary")
 (setq diary-mail-addr "mudand88@gmail.com")
 (add-hook 'diary-hook 'appt-make-list)
 (setq calendar-date-style 'iso)
 
 ;; appointment
 ;; appt-add 加入新的提醒，appt-delete 删掉提醒
-(appt-activate 1)                       ;开启提醒appointment功能
-(setq appt-audible t)                   ;开启appointment的声音提醒
-(setq appt-display-mode-line t)         ;在mode-line上显示appointment的倒计时
+(appt-activate 1)                       ;开启提醒 appointment 功能
+(setq appt-audible t)                   ;开启 appointment 的声音提醒
+(setq appt-display-mode-line t)         ;在 mode-line 上显示 appointment 的倒计时
 (add-hook 'diary-hook 'appt-make-list)
 (setq appt-issue-message t)
 

@@ -7,12 +7,13 @@
                (windmove-default-keybindings))
 
 ;; 把所有的文件备份都放在一个固定的地方，三个备份
-(setq version-control t)
-(setq kept-old-versions 2)
-(setq kept-new-versions 3)
-(setq delete-old-versions t)
-(setq backup-directory-alist '(("." . "~/.emacs.d/backup")))
-(setq backup-by-copying t)
+(setq make-backup-files t) ;;开启备份
+(setq version-control t) ;;多版本备份
+(setq kept-old-versions 2) ;;备份老版本的数量
+(setq kept-new-versions 3) ;;备份新版本的数量
+(setq delete-old-versions t) ;;自动删除老版本
+(setq backup-by-copying t) ;;拷贝时自动备份
+(setq backup-directory-alist '(("." . "~/.emacs.d/tmp/backup")))
 
 ;; 显示时间设置
 (display-time-mode 1);;启用时间显示设置
@@ -84,6 +85,8 @@
 
 ;; dired
 ;(require 'dired-tar)   ;; 使用'T'来打包或者解压文件夹，需要 gzip 和 unzip 支持
+;; 改变文件大小显示，默认调用的是 ls 命令
+(setq dired-listing-switches "-alh")
 ;;允许复制和删除时将文件夹里所有内容一起带上
 (setq dired-recursive-copies t)
 (setq dired-recursive-deletes t)
