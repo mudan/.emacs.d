@@ -47,15 +47,26 @@
 (setq user-full-name "mudan")
 (setq user-mail-address "mudand88@gmail.com")
 
+;; History
+(setq savehist-file "~/.emacs.d/savehist")
+(savehist-mode 1)
+(setq history-length t)
+(setq history-delete-duplicates t)
+(setq savehist-save-minibuffer-history 1)
+(setq savehist-additional-variables
+      '(kill-ring
+	search-ring
+	regexp-search-ring))
+
 ;; 字符编码
 ;(setq locale-coding-system 'utf-8)
 ;(set-terminal-coding-system 'utf-8)
 ;(set-keyboard-coding-system 'utf-8)
 ;(set-selection-coding-system 'utf-8)
 ;; 系统编码
-(prefer-coding-system 'utf-8 )
+;(prefer-coding-system 'utf-8 )
 ;; 语言环境
-(set-language-environment 'utf-8 )
+;(set-language-environment 'utf-8 )
 ;; 文件保存时的编码
 (set-buffer-file-coding-system 'utf-8 )
 ;; 读写缓冲区编码
@@ -71,7 +82,7 @@
 (set-fontset-font t 'unicode "STIX" nil 'prepend)
 ;; prettify-symbols-mode 将各种标识符号改成更美观的字符
 ;; 可以参考 vim 中同类插件 haskell.vim
-(global-prettify-symbols-mode 1)
+;(global-prettify-symbols-mode 1)
 (defconst lisp--prettify-symbols-alist
   '(("lambda"  . ?λ)
     ("pi" . ?π)

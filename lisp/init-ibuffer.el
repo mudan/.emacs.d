@@ -1,5 +1,11 @@
 (require-package 'fullframe)
 (require-package 'ibuffer-git)
+(require-package 'winner)	;; undo and redo window configuration
+
+;; 使用 Ctrl-c ← （向左的箭头键）组合键，退回你的上一个窗口设置
+(when (fboundp 'winner-mode)
+               (winner-mode)
+               (windmove-default-keybindings))
 
 ;; 基本设置
 (setq ibuffer-always-compile-formats         t )

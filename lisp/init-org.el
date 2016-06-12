@@ -1,8 +1,13 @@
 (require-package 'org)
 ;(require-package 'ox-twbs)	;; https://github.com/marsmining/ox-twbs
-		;; org-twbs-export-to-html
+				;; org-twbs-export-to-html
 ;(require 'ox-twbs)
 ;(require-package 'org-fstree)
+;(require-package 'babel)	;; 在 org 中执行源代码
+
+(require 'ox-md)
+
+(eval-when-compile (require 'org-compat)) ; org-with-silent-modifications
 
 ;(require-package 'org-crypt)   ; 需启动 EasyPG 加密指定条目
 ;(require 'org-crypt)
@@ -18,7 +23,6 @@
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Fancy todo states
-
 
 ;(when *is-a-mac*
 ;  (require-package 'org-mac-link)
@@ -39,7 +43,7 @@
 
 ;; Various preferences
 (setq org-log-done t		; 日志记录
-      org-log-done '(done)	; 日志记录类型
+      org-log-done 'time	; 日志记录类型
       org-enable-table-editor 1	; 启用内建的电子表格
       org-completion-use-ido t
       org-edit-timestamp-down-means-later t
@@ -54,7 +58,7 @@
 
 ;; 大纲模式下省略号改成箭头
 ;; ▼, ↴, ⬎, ⤷
-;(setq org-ellipsis "⤵")
+(setq org-ellipsis "⤵")
 ;; 自动缩排模式
 (setq org-startup-indented t)
 ;; 所有项目隐藏，只保留母节点
@@ -75,24 +79,42 @@
 ;; 默认按 <e + TAB 可自动补全为
 ;; #+BEGIN_EXAMPLE
 ;; #+END_EXAMPLE
-;(add-to-list 'org-structure-template-alist
-;             '("E" "#+BEGIN_SRC emacs-lisp\n?\n#+END_SRC"))
-;             (add-to-list 'org-structure-template-alist
-;             '("S" "#+BEGIN_SRC sh\n?\n#+END_SRC"))
-;             (add-to-list 'org-structure-template-alist
-;             '("p" "#+BEGIN_SRC plantuml :file uml.png \n?\n#+END_SRC"))
+;; s 	#+BEGIN_SRC ... #+END_SRC
+;; e 	#+BEGIN_EXAMPLE ... #+END_EXAMPLE
+;; q 	#+BEGIN_QUOTE ... #+END_QUOTE
+;; v 	#+BEGIN_VERSE ... #+END_VERSE
+;; c 	#+BEGIN_CENTER ... #+END_CENTER
+;; l 	#+BEGIN_LaTeX ... #+END_LaTeX
+;; L 	#+LaTeX:
+;; h 	#+BEGIN_HTML ... #+END_HTML
+;; H 	#+HTML:
+;; a 	#+BEGIN_ASCII ... #+END_ASCII
+;; A 	#+ASCII:
+;; i 	#+INDEX: line
+;; I 	#+INCLUDE: line 
+;(setq org-structure-template-alist
+;      '(("A" "#+ascii: ")
+;        ("I" "#+include %file ?" "<include file=%file markup=\"?\">")))
+
+;; tag list
+(setq org-tag-alist '(("@work" . ?b)
+                      ("@home" . ?h)
+                      ("@writing" . ?w)
+                      ("@reading" . ?r)))
 
 ;; 设定 org 目录
 (setq org-publish-project-alist
       '(("org-notes"
-         :base-directory "D:/MEGA/note/文摘"
-         :publishing-directory "D:/MEGA/note/文摘/public_html/"
+         :base-directory "~/MEGA/note/文摘"
+         :publishing-directory "~/MEGA/note/文摘/public_html/"
          :publishing-function org-twbs-publish-to-html
          :with-sub-superscript nil
          )))
 ;;(local-set-key (kbd "s-\\") 'my-org-publish-buffer)	;; 在 OSX 下使用 CMD- \
 
 ;; agenda
+(setq org-agenda-show-log t)
+(setq org-agenda-tags-column -100)
 (setq org-agenda-include-diary t)      ; 将 diary 的事项也纳入 agenda 中显示
 (setq org-agenda-compact-blocks t)	; Compact the block agenda view
 (setq org-agenda-show-all-dates t)	; 显示所有 Agenda 日期，即使没有任务
@@ -102,10 +124,13 @@
 ;(setq org-agenda-files (list org-directory))    ; angenda 文件从 org 文件夹中寻找
 (add-hook 'org-agenda-mode-hook 'hl-line-mode)  ; agenda 启动 hl-line
 (setq org-agenda-show-all-dates t)	; C-c C-t 直接选择 TODO 状态
-
+;(setq org-agenda-files (list
+;                        "~/MEGA/note/notes.org"
+;                        "~/MEGA/note/gtd.org"))
 
 ;; 任何未完成的子任务会阻止父任务变为完成状态,若像临时屏蔽该功能,可以为该任务添加`:NOBLOCKING: t'属性
 ;; 若父任务中设置了属性`:ORDERED: t',则表示其子任务必须依照顺序从上到下完成
+
 (setq org-enforce-todo-dependencies t)
 
 ;; TODO 自动更新进度
@@ -120,11 +145,11 @@
 
 ;; org capture
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "D:/MEGA/note/todo.org" "Tasks")
+      '(("t" "Todo" entry (file+headline "~/MEGA/note/todo.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "D:/MEGA/note/journal.org")
+        ("j" "Journal" entry (file+datetree "~/MEGA/note/journal.org")
          "* %?\nEntered on %U\n  %i\n  %a")
-        ("n" "Note" entry (file+datetree "D:/MEGA/note/note.org")
+        ("n" "Note" entry (file+datetree "~/MEGA/note/note.org")
          "* %? :NOTE:\n%U\n%a\n")
         ))
 ;; C-c t 直接打开 todo.org
@@ -224,7 +249,7 @@ unwanted space when exporting org-mode to html."
 ;; M-x gtd 在新的窗口中打开了 GTD.org
 ; (defun gtd ()
 ;   (interactive)
-;   (find-file "~/GTD.org")
+;   (find-file "~/MEGA/GTD.org")
 ; )
 
 (provide 'init-org)

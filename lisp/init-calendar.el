@@ -61,7 +61,7 @@
 ;(setq todo-file-done (concat GTD-HOME-PATH "todo/done"))
 ;(setq todo-file-top (concat GTD-HOME-PATH "todo/top"))
 ;(setq diary-file (concat GTD-HOME-PATH "diary"))
-(setq diary-file "D:/MEGA/note/diary")
+(setq diary-file "~/MEGA/note/diary")
 (setq diary-mail-addr "mudand88@gmail.com")
 (add-hook 'diary-hook 'appt-make-list)
 (setq calendar-date-style 'iso)

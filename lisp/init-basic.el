@@ -1,10 +1,11 @@
-(require-package 'zenburn-theme)
-(require 'zenburn-theme)
+;(require-package 'zenburn-theme)
+;(require 'zenburn-theme)
 
-;; 使用 Ctrl-c ← （向左的箭头键）组合键，退回你的上一个窗口设置
-(when (fboundp 'winner-mode)
-               (winner-mode)
-               (windmove-default-keybindings))
+;(require-package 'solarized-theme)
+;(require 'solarized-theme)
+;(deftheme solarized-light "The light variant of the Solrized colour theme")
+;(create-solarized-theme 'light 'solarized-light)
+;(provide-theme 'solarized-light)
 
 ;; 把所有的文件备份都放在一个固定的地方，三个备份
 (setq make-backup-files t) ;;开启备份
